@@ -1,0 +1,37 @@
+# this is a licence application demo. 
+version: "2"
+services:
+  licence-web:
+    container_name: licence-web
+    image: weifang993/licence-application-web
+    restart: always
+    ports:
+      - "4500:80"
+  dpd-service:
+    container_name: dpd-service
+    image: weifang993/dpd-server
+    restart: always
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+  licence-service:
+    container_name: licence-service
+    image: weifang993/licence-application-server
+    restart: always
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    volumes:
+    # If you have mongodb installed on the host, 
+    # your can map docker mongo to persist in current data directory.
+    # Make sure the host mongoDB dbPath is set to '/var/lib/mongodb.
+    # Make sure to stop host mongoDB before running this script.  
+    #  - /var/lib/mongodb:/data/db 
+      - /home/wei/Dev/test/mongodb:/data/db
+    ports:
+      - "27017:27017"
