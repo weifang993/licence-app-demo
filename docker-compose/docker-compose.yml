@@ -27,11 +27,6 @@ services:
     container_name: mongo
     image: mongo:latest
     volumes:
-    # If you have mongodb installed on the host, 
-    # your can map docker mongo to persist in current data directory.
-    # Make sure the host mongoDB dbPath is set to '/var/lib/mongodb.
-    # Make sure to stop host mongoDB before running this script.  
-    #  - /var/lib/mongodb:/data/db 
-      - /home/wei/Dev/test/mongodb:/data/db
+      - /data/mongodb:/data/db
     ports:
       - "27017:27017"
