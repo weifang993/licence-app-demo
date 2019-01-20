@@ -1,0 +1,39 @@
+# https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address-service/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpd-deployment
+spec:
+  selector: 
+    matchLabels:
+      app: dpd-server
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: dpd-server
+    spec:
+      containers:
+      - name: dpd-server
+        image: weifang993/dpd-server
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dpd-service
+spec:
+  selector:
+    app: dpd-server
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 32500
+  type: NodePort
+
+
+
+
+

@@ -1,0 +1,37 @@
+
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: drug-search-deployment 
+spec: 
+  selector: 
+    matchLabels: 
+      app: drug-search 
+  replicas: 2 # tells deployment to run 2 pods matching the template 
+  template: 
+    metadata: 
+      labels: 
+        app: drug-search
+    spec: 
+      containers: 
+      - name: drug-search
+        image: drug-search
+        imagePullPolicy: IfNotPresent
+        ports: 
+        - containerPort: 80 
+
+--- 
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
+kind: Service 
+apiVersion: v1 
+metadata: 
+  name: drug-search-service 
+spec: 
+  selector: 
+    app: drug-search
+  ports: 
+  - protocol: TCP 
+    port: 80 
+    targetPort: 80 
+    nodePort: 31000 
+  type: NodePort 
