@@ -2,7 +2,7 @@
 # this file includes "drug-search". to test it, rename it to "docker-compose.yml" 
 # drug-search url: http://localhost:4600
 # licence-applicaiton-web url: http://localhost:4500
-version: "2"
+version: "3"
 services:
   drug-search:
     container_name: drug-search
@@ -14,10 +14,11 @@ services:
     container_name: dpd-service
     image: weifang993/dpd-node-server
     restart: always
+    environment:
+      - MONGODB_SERVICE_HOST=localhost
+      - MONGODB_SERVICE_PORT=27017
     ports:
       - "8080:8080"
-    links:
-      - mongo  
   mongo:
     container_name: mongo
     image: mongo:latest
