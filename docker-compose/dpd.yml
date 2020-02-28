@@ -1,7 +1,6 @@
-# this is a licence application demo. 
-# this file includes "drug-search". to test it, rename it to "docker-compose.yml" 
+# this is a drug search demo. 
+# to run it, `[sudo ] docker-compose -f dpd.yml up" 
 # drug-search url: http://localhost:4600
-# licence-applicaiton-web url: http://localhost:4500
 version: "3"
 services:
   drug-search:
@@ -12,13 +11,19 @@ services:
       - "4600:8080"
   dpd-service:
     container_name: dpd-service
-    image: weifang993/dpd-node-server
+    image: weifang993/dpd-server
     restart: always
-    environment:
-      - MONGODB_SERVICE_HOST=127.0.0.1
-      - MONGODB_SERVICE_PORT=27017
     ports:
-      - "8080:3000"
+      - "8080:8080"
+  # dpd-service:
+  #   container_name: dpd-node-service
+  #   image: weifang993/dpd-node-server
+  #   restart: always
+  #   ports:
+  #     - "8080:3000"
+  #   environment:
+  #     - MONGODB_SERVICE_HOST=localhost
+  #     - MONGODB_SERVICE_PORT=27017    
   mongo:
     container_name: mongo
     image: mongo:latest
