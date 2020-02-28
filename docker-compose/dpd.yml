@@ -15,10 +15,10 @@ services:
     image: weifang993/dpd-node-server
     restart: always
     environment:
-      - MONGODB_SERVICE_HOST=localhost
+      - MONGODB_SERVICE_HOST=127.0.0.1
       - MONGODB_SERVICE_PORT=27017
     ports:
-      - "8080:8080"
+      - "8080:3000"
   mongo:
     container_name: mongo
     image: mongo:latest
