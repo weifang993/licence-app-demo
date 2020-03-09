@@ -9,21 +9,19 @@ services:
     restart: always
     ports:
       - "4600:8080"
+    depends_on:
+      - dpd-service  
   dpd-service:
-    container_name: dpd-service
-    image: weifang993/dpd-server
+    container_name: dpd-node-service
+    image: weifang993/dpd-node-server
     restart: always
     ports:
-      - "8080:8080"
-  # dpd-service:
-  #   container_name: dpd-node-service
-  #   image: weifang993/dpd-node-server
-  #   restart: always
-  #   ports:
-  #     - "8080:3000"
-  #   environment:
-  #     - MONGODB_SERVICE_HOST=localhost
-  #     - MONGODB_SERVICE_PORT=27017    
+      - "8080:3000"
+    environment:
+      - MONGODB_SERVICE_HOST=mongo
+      - MONGODB_SERVICE_PORT=27017    
+    depends_on:
+      - mongo  
   mongo:
     container_name: mongo
     image: mongo:latest
